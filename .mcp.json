@@ -4,6 +4,10 @@
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp"]
     },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
     "github": {
       "type": "remote",
       "url": "https://api.githubcopilot.com/mcp/",
