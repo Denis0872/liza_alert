@@ -1,0 +1,374 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-user-account
+      author: opencode
+      changes:
+        - createTable:
+            tableName: user_account
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: full_name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(180)
+              - column:
+                  name: phone
+                  type: varchar(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: telegram_handle
+                  type: varchar(120)
+              - column:
+                  name: role
+                  type: varchar(40)
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: user_account
+            columnNames: email
+            constraintName: uk_user_account_email
+
+  - changeSet:
+      id: 002-create-pet-profile
+      author: opencode
+      changes:
+        - createTable:
+            tableName: pet_profile
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: owner_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: species
+                  type: varchar(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(120)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: breed
+                  type: varchar(120)
+              - column:
+                  name: sex
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age_years
+                  type: integer
+              - column:
+                  name: size_label
+                  type: varchar(40)
+              - column:
+                  name: primary_color
+                  type: varchar(80)
+              - column:
+                  name: secondary_color
+                  type: varchar(80)
+              - column:
+                  name: special_marks
+                  type: varchar(2000)
+              - column:
+                  name: microchip_id
+                  type: varchar(120)
+              - column:
+                  name: collar_details
+                  type: varchar(255)
+              - column:
+                  name: behavior_notes
+                  type: varchar(2000)
+        - addForeignKeyConstraint:
+            baseTableName: pet_profile
+            baseColumnNames: owner_id
+            referencedTableName: user_account
+            referencedColumnNames: id
+            constraintName: fk_pet_profile_owner
+        - createIndex:
+            tableName: pet_profile
+            indexName: idx_pet_profile_species
+            columns:
+              - column:
+                  name: species
+
+  - changeSet:
+      id: 003-create-lost-case
+      author: opencode
+      changes:
+        - createTable:
+            tableName: lost_case
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: pet_profile_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lost_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_seen_city
+                  type: varchar(120)
+              - column:
+                  name: last_seen_district
+                  type: varchar(120)
+              - column:
+                  name: last_seen_address
+                  type: varchar(255)
+              - column:
+                  name: last_seen_latitude
+                  type: decimal(9,6)
+              - column:
+                  name: last_seen_longitude
+                  type: decimal(9,6)
+              - column:
+                  name: last_seen_notes
+                  type: varchar(1000)
+              - column:
+                  name: circumstances
+                  type: varchar(4000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: contact_phone
+                  type: varchar(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reward_details
+                  type: varchar(500)
+              - column:
+                  name: urgent
+                  type: boolean
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: lost_case
+            baseColumnNames: pet_profile_id
+            referencedTableName: pet_profile
+            referencedColumnNames: id
+            constraintName: fk_lost_case_pet_profile
+        - addForeignKeyConstraint:
+            baseTableName: lost_case
+            baseColumnNames: created_by_id
+            referencedTableName: user_account
+            referencedColumnNames: id
+            constraintName: fk_lost_case_created_by
+        - createIndex:
+            tableName: lost_case
+            indexName: idx_lost_case_status
+            columns:
+              - column:
+                  name: status
+        - createIndex:
+            tableName: lost_case
+            indexName: idx_lost_case_lost_at
+            columns:
+              - column:
+                  name: lost_at
+
+  - changeSet:
+      id: 004-create-sighting-report
+      author: opencode
+      changes:
+        - createTable:
+            tableName: sighting_report
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lost_case_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reporter_name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reporter_phone
+                  type: varchar(40)
+              - column:
+                  name: seen_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: confidence_score
+                  type: integer
+              - column:
+                  name: sighting_city
+                  type: varchar(120)
+              - column:
+                  name: sighting_district
+                  type: varchar(120)
+              - column:
+                  name: sighting_address
+                  type: varchar(255)
+              - column:
+                  name: sighting_latitude
+                  type: decimal(9,6)
+              - column:
+                  name: sighting_longitude
+                  type: decimal(9,6)
+              - column:
+                  name: sighting_notes
+                  type: varchar(1000)
+              - column:
+                  name: notes
+                  type: varchar(2000)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: sighting_report
+            baseColumnNames: lost_case_id
+            referencedTableName: lost_case
+            referencedColumnNames: id
+            constraintName: fk_sighting_report_lost_case
+        - createIndex:
+            tableName: sighting_report
+            indexName: idx_sighting_report_status
+            columns:
+              - column:
+                  name: status
+
+  - changeSet:
+      id: 005-create-media-asset
+      author: opencode
+      changes:
+        - createTable:
+            tableName: media_asset
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lost_case_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: media_type
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: external_url
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: caption
+                  type: varchar(255)
+              - column:
+                  name: sort_order
+                  type: integer
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: media_asset
+            baseColumnNames: lost_case_id
+            referencedTableName: lost_case
+            referencedColumnNames: id
+            constraintName: fk_media_asset_lost_case

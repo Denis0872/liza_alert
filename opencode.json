@@ -11,11 +11,34 @@
     "github": {
       "type": "remote",
       "url": "https://api.githubcopilot.com/mcp/",
+      "oauth": false,
       "headers": {
         "Authorization": "Bearer {env:GITHUB_PAT}"
       }
     },
-    "plyawright": {
+    "docker": {
+      "type": "local",
+      "command": [
+        "docker",
+        "mcp",
+        "gateway",
+        "run",
+        "--servers",
+        "docker"
+      ]
+    },
+    "postgres": {
+      "type": "local",
+      "command": [
+        "docker",
+        "mcp",
+        "gateway",
+        "run",
+        "--servers",
+        "database-server"
+      ]
+    },
+    "playwright": {
       "type": "local",
       "command": [
         "npx",

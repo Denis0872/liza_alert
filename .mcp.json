@@ -11,9 +11,18 @@
     "github": {
       "type": "remote",
       "url": "https://api.githubcopilot.com/mcp/",
+      "oauth": false,
       "headers": {
         "Authorization": "Bearer {env:GITHUB_PAT}"
       }
+    },
+    "docker": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--servers", "docker"]
+    },
+    "postgres": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--servers", "database-server"]
     }
   }
 }

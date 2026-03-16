@@ -9,5 +9,4 @@ class LandingDemoApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
