@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>Liza_Alert</artifactId>
+    <artifactId>liza_alert</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>landing-demo</name>
-    <description>landing-demo</description>
+    <name>liza_alert</name>
+    <description>liza_alert</description>
     <url/>
     <licenses>
         <license/>

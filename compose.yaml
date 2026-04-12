@@ -1,20 +1,20 @@
 services:
   postgres:
     image: postgres:17-alpine
-    container_name: landing-demo-postgres
+    container_name: liza-alert-postgres
     environment:
-      POSTGRES_DB: landingdemo
+      POSTGRES_DB: liza_alert
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "5434:5432"
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - liza-alert-postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d landingdemo"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d liza_alert"]
       interval: 10s
       timeout: 5s
       retries: 5
 
 volumes:
-  postgres-data:
+  liza-alert-postgres-data:
