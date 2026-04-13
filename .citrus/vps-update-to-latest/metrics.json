@@ -1,0 +1,24 @@
+{
+  "changeSet": "vps-update-to-latest",
+  "status": "validated",
+  "localCommit": "a6f1ed7161ccd40bd6a859f7da2e5fc1c9841edb",
+  "deployedCommit": "a6f1ed7161ccd40bd6a859f7da2e5fc1c9841edb",
+  "service": {
+    "name": "liza-alert.service",
+    "active": true,
+    "port": 8080,
+    "managedBySystemd": true
+  },
+  "http": {
+    "localStatus": 200,
+    "externalStatus": 200,
+    "response": "[]"
+  },
+  "commands": [
+    "ssh -p 2222 denis@185.21.8.116 'cd ~/apps/liza_alert && git pull --ff-only && mvn -q -DskipTests package'",
+    "ssh -p 2222 root@185.21.8.116 'systemctl restart liza-alert.service'",
+    "ssh -p 2222 root@185.21.8.116 'pkill -f liza_alert-0.0.1-SNAPSHOT.jar || true'",
+    "ssh -p 2222 denis@185.21.8.116 'curl http://localhost/api/v1/lost-cases'",
+    "curl http://185.21.8.116/api/v1/lost-cases"
+  ]
+}

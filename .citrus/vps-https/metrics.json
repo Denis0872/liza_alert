@@ -1,0 +1,30 @@
+{
+  "changeSet": "vps-https",
+  "status": "validated",
+  "hostname": "278122.fornex.cloud",
+  "email": "denispetergof@gmail.com",
+  "certificate": {
+    "issuer": "Let's Encrypt",
+    "domains": [
+      "278122.fornex.cloud"
+    ],
+    "validDaysApprox": 89,
+    "path": "/etc/letsencrypt/live/278122.fornex.cloud/fullchain.pem"
+  },
+  "http": {
+    "redirectStatus": 301,
+    "httpsStatus": 200,
+    "apiResponse": "[]"
+  },
+  "services": {
+    "nginx": "active",
+    "lizaAlert": "active"
+  },
+  "commands": [
+    "certbot --nginx -d 278122.fornex.cloud --non-interactive --agree-tos -m denispetergof@gmail.com --redirect",
+    "curl -I http://278122.fornex.cloud",
+    "curl -I https://278122.fornex.cloud",
+    "curl https://278122.fornex.cloud/api/v1/lost-cases",
+    "certbot certificates"
+  ]
+}

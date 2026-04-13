@@ -1,0 +1,37 @@
+{
+  "changeSet": "vps-security-hardening",
+  "status": "validated",
+  "server": {
+    "host": "185.21.8.116",
+    "port": 2222,
+    "hostname": "278122.fornex.cloud"
+  },
+  "security": {
+    "postgresHostBinding": "127.0.0.1:5434",
+    "httpsEnabled": true,
+    "sshPasswordLoginEnabled": false,
+    "sshAuthenticationMethods": "publickey",
+    "rootLogin": "prohibit-password",
+    "daniilKeyLogin": true,
+    "daniilPasswordlessSudo": true
+  },
+  "runtime": {
+    "httpsApiStatus": 200,
+    "httpsApiResponse": "[]",
+    "lizaAlertService": "active",
+    "nginxService": "active"
+  },
+  "incident": {
+    "suspiciousBinary": "/tmp/mysql",
+    "container": "liza-alert-postgres",
+    "resolvedByContainerRecreation": true
+  },
+  "commands": [
+    "top",
+    "docker top liza-alert-postgres",
+    "curl https://278122.fornex.cloud/api/v1/lost-cases",
+    "ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no -p 2222 denis@185.21.8.116",
+    "ssh -p 2222 daniil@185.21.8.116",
+    "sudo -n true"
+  ]
+}
