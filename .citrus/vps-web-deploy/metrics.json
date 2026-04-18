@@ -1,0 +1,20 @@
+{
+  "changeSet": "vps-web-deploy",
+  "status": "validated",
+  "domain": "https://lizaalertspb.ru",
+  "webRoot": "/var/www/liza_alert_web",
+  "routing": {
+    "frontend": "/",
+    "backendApi": "/api/"
+  },
+  "validation": {
+    "frontendStatus": 200,
+    "backendApiStatus": 200,
+    "backendApiResponse": "[]"
+  },
+  "commands": [
+    "npm run build",
+    "curl -I https://lizaalertspb.ru",
+    "curl https://lizaalertspb.ru/api/v1/lost-cases"
+  ]
+}
